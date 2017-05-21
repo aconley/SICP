@@ -6,7 +6,10 @@
          fib3rec
          fib3iter
          fast-exp
-         carmichael?)
+         carmichael?
+         sum
+         product
+         accumulate)
 
 ;; Exercise 1.2
 (define ex1.2
@@ -88,7 +91,7 @@
         [else (expmod-helper 1 b n)]))
 
 ;; Tests if a^n (mod n) == a (mod n) for all a in [1, n)
-;;
+;; If this is true, n is either prime or a Carmichael number
 (define (carmichael? n)
   ;; Tries a value a < n
   (define (test-a a)
@@ -100,4 +103,21 @@
             #f)
         #t))
   (loop 1))
-      
+
+;; Exercises 1.30 - 1.32
+(define (sum term a next b)
+  (define (iter a result)
+    (if (> a b)
+        result
+        (iter (next a) (+ (term a) result))))
+  (iter a 0))
+
+(define (accumulate combiner null-value term a next b)
+  (define (iter val result)
+    (if (> val b)
+        result
+        (iter (next val) (combiner (term val) result))))
+  (iter a null-value))
+
+(define (product term a next b)
+  (accumulate (lambda (x y) (* x y)) 1 term a next b))
