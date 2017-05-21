@@ -44,8 +44,10 @@
 
 ;; Exercise 1.11: 3 term Fibonnaci
 (define (fib3rec n)
-  (cond ((< n 3) n)
-        (else (+ (fib3rec (- n 1)) (* 2 (fib3rec (- n 2))) (* 3 (fib3rec (- n 3)))))))
+  (cond [(< n 3) n]
+        [else (+ (fib3rec (- n 1))
+                 (* 2 (fib3rec (- n 2)))
+                 (* 3 (fib3rec (- n 3))))]))
 
 (define (fib3iter n)
   (define (iter fm1 fm2 fm3 count)
@@ -53,3 +55,16 @@
         fm3
         (iter (+ fm1 (* 2 fm2) (* 3 fm3)) fm1 fm2 (- count 1))))
   (iter 2 1 0 n))
+
+;; Exercise 1.16 Fast exponentiation
+(define (fast-exp b n)
+  (define (fast-exp-helper a b n)  ;; invariant: the product is a b^n
+    (cond
+      [(= n 0) a]
+      [(odd? n)
+           (fast-exp-helper (* a b) b (- n 1))]
+      [else (fast-exp-helper a (* b b) (/ n 2))]))
+  (cond [(< n 0) (error "n must be >= 0")]
+        [(= b 0) b]
+        [(= b 1) b]
+        [else (fast-exp-helper 1 b n)]))
