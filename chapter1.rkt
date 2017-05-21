@@ -9,7 +9,10 @@
          carmichael?
          sum
          product
-         accumulate)
+         accumulate
+         double
+         compose
+         repeated)
 
 ;; Exercise 1.2
 (define ex1.2
@@ -121,3 +124,17 @@
 
 (define (product term a next b)
   (accumulate (lambda (x y) (* x y)) 1 term a next b))
+
+;; Exercise 1.41
+(define (double f)
+  (lambda (x) (f (f x))))
+
+;; Exercise 1.42
+(define (compose f g)
+  (lambda (x) (f (g x))))
+
+;; Exercise 1.43: returns a function that applies f n times
+(define (repeated f n)
+  (if (<= n 1)
+      f
+      (compose f (repeated f (- n 1)))))

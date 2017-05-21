@@ -65,3 +65,18 @@
  (check-equal? (product ident -2 inc 4) 0)
  (check-equal? (product ident -1 inc2 4) (* -1 1 3))
  (check-equal? (product sq 3 inc2 6) (* 9 25)))
+
+;; Exercise 1.41
+(test-begin
+ (check-equal? ((double inc) 5) 7)
+ (check-equal? (((double double) inc) 5) 9)
+ (check-equal? (((double (double double)) inc) 5) 21))
+
+;; Exercise 1.42
+(test-begin
+ (check-equal? ((compose sq inc) 6) (* 7 7)))
+
+;; Exercise 1.43
+(test-begin
+ (check-equal? ((repeated inc 5) 4) 9)
+ (check-equal? ((repeated sq 2) 5) 625))
