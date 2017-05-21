@@ -107,6 +107,21 @@
         #t))
   (loop 1))
 
+;; Exercise 1.29
+(define (simpson f a b n)
+  
+  (let ([h (/ (- b a) n)])
+    (define (inc x) (+ x 1))
+    (define (fk k) (f (+ a (* k h))))
+    (define (term k)
+      (*
+       (cond
+         [(odd? k) 4.0]
+         [(or (= k 0) (= k n)) 1.0]
+         [else 2.0])
+       (fk k)))
+    (/ (* h (sum term 0 inc n)) 3)))
+
 ;; Exercises 1.30 - 1.32
 (define (sum term a next b)
   (define (iter a result)
