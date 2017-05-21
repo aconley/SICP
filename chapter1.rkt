@@ -4,7 +4,9 @@
          ex1.3
          sqrt
          fib3rec
-         fib3iter)
+         fib3iter
+         fast-exp
+         carmichael?)
 
 ;; Exercise 1.2
 (define ex1.2
@@ -68,3 +70,34 @@
         [(= b 0) b]
         [(= b 1) b]
         [else (fast-exp-helper 1 b n)]))
+
+;; Exercise 1.27: Carmichael Numbers
+
+;; Computes b^n mod m
+(define (expmod b n m)
+  (define (expmod-helper a b n)
+    (cond
+      [(= n 0) a]
+      [(odd? n)
+           (remainder (expmod-helper (* a b) b (- n 1)) m)]
+      [else (remainder (expmod-helper a (* b b) (/ n 2)) m)]))
+  (cond [(< n 0) (error "n must be >= 0")]
+        [(<= m 0) (error "m must be >= 0")] 
+        [(= b 0) b]
+        [(= b 1) b]
+        [else (expmod-helper 1 b n)]))
+
+;; Tests if a^n (mod n) == a (mod n) for all a in [1, n)
+;;
+(define (carmichael? n)
+  ;; Tries a value a < n
+  (define (test-a a)
+    (= (expmod a n n) a))
+  (define (loop idx)
+    (if (< idx n)
+        (if (test-a idx)
+            (loop (+ idx 1))
+            #f)
+        #t))
+  (loop 1))
+      

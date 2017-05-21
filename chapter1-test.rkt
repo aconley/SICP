@@ -34,4 +34,14 @@
  (check-equal? (fast-exp 2 15) 32768)
  (check-equal? (fast-exp 2 16) 65536)
  (check-equal? (fast-exp 10 5) 100000))
- 
+
+;; carmichael test
+(test-begin
+ (for-each (lambda (el) (check-true (carmichael? el)))
+           (list 2 3 5 7 11 13 17 19 23 27))
+ (for-each (lambda (el) (check-false (carmichael? el)))
+           (list 4 9 12 14 20 21 24 100 105))
+ (check-true (carmichael? 561))
+ (check-true (carmichael? 1105))
+ (check-true (carmichael? 1729))
+ (check-false (carmichael? 1731)))
