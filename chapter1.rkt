@@ -1,5 +1,11 @@
 #lang racket
 
+(provide ex1.2
+         ex1.3
+         sqrt
+         fib3rec
+         fib3iter)
+
 ;; Exercise 1.2
 (define ex1.2
   (let ([upper (+ 5 4 (- 2 (- 3 (+ 6 (/ 4 5)))))]
@@ -32,7 +38,9 @@
     (if (good-enough? guess prev-guess x)
         guess
         (sqrt-iter (improve guess x) guess x)))
-  (sqrt-iter 1.0 0.5 x))
+  (cond ((< x 0) (error "argument to sqrt less than 0"))
+        ((= x 0) 0)
+        (else (sqrt-iter 1.0 0.5 x))))
 
 ;; Exercise 1.11: 3 term Fibonnaci
 (define (fib3rec n)
