@@ -5,7 +5,12 @@
          denom
          church-cons
          church-car
-         church-cdr)
+         church-cdr
+         make-interval
+         upper-bound
+         lower-bound
+         add-interval
+         sub-interval)
 
 ;; Exercise 2.1: better version of make-rat
 (define (gcd a b)
@@ -30,3 +35,18 @@
   (z (lambda (p q) p)))
 (define (church-cdr z)
   (z (lambda (p q) q)))
+
+;; Exercise 2.7 + 2.8
+(define make-interval cons)
+(define upper-bound cdr)
+(define lower-bound car)
+
+(define (add-interval x y)
+  (make-interval (+ (lower-bound x) (lower-bound y))
+                 (+ (upper-bound x) (upper-bound y))))
+(define (sub-interval x y)
+  (let ([lower (- (lower-bound x) (lower-bound y))]
+        [upper (- (upper-bound x) (upper-bound y))])
+    (if (< upper lower)
+        (make-interval upper lower)
+        (make-interval lower upper))))
