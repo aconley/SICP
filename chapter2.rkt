@@ -11,7 +11,8 @@
          lower-bound
          add-interval
          sub-interval
-         last-pair)
+         last-pair
+         reverse)
 
 ;; Exercise 2.1: better version of make-rat
 (define (gcd a b)
@@ -58,4 +59,12 @@
     (if (null? lst)
         prev
         (helper (cdr lst) (list (car lst)))))
+  (helper lst '()))
+
+;; Exercise 2.18
+(define (reverse lst)
+  (define (helper lst accum)
+    (if (null? lst)
+        accum
+        (helper (cdr lst) (cons (car lst) accum))))
   (helper lst '()))

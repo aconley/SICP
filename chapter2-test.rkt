@@ -30,6 +30,12 @@
 
 ;; Exercise 2.17
 (test-begin
- (check-equal? (last-pair (list 1 2 3 4)) (4))
- (check-equal? (last-pair (list 3) (3)))
+ (check-equal? (last-pair (list 1 2 3 4)) '(4))
+ (check-equal? (last-pair (list 3)) '(3))
  (check-equal? (last-pair '()) '()))
+
+;; Exercise 2.18
+(test-begin
+ (check-equal? (reverse (list 1 2 3)) (list  3 2 1))
+ (check-equal? (reverse '()) '())
+ (check-equal? (reverse (list 1)) (list 1)))
