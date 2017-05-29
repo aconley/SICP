@@ -2,7 +2,10 @@
 
 (provide make-rat
          numer
-         denom)
+         denom
+         church-cons
+         church-car
+         church-cdr)
 
 ;; Exercise 2.1: better version of make-rat
 (define (gcd a b)
@@ -19,3 +22,11 @@
 
 (define numer car)
 (define denom cdr)
+
+;; Exercise 2.4 Lambda calculus for pairs
+(define (church-cons x y)
+  (lambda (m) (m x y)))
+(define (church-car z)
+  (z (lambda (p q) p)))
+(define (church-cdr z)
+  (z (lambda (p q) q)))
