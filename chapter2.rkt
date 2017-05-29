@@ -10,7 +10,8 @@
          upper-bound
          lower-bound
          add-interval
-         sub-interval)
+         sub-interval
+         last-pair)
 
 ;; Exercise 2.1: better version of make-rat
 (define (gcd a b)
@@ -50,3 +51,11 @@
     (if (< upper lower)
         (make-interval upper lower)
         (make-interval lower upper))))
+
+;; Exercise 2.17
+(define (last-pair lst)
+  (define (helper lst prev)
+    (if (null? lst)
+        prev
+        (helper (cdr lst) (list (car lst)))))
+  (helper lst '()))
