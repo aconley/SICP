@@ -68,3 +68,12 @@
         accum
         (helper (cdr lst) (cons (car lst) accum))))
   (helper lst '()))
+
+;; Exercise 2.23
+(define (for-each f xs)
+  (if (null? xs)
+      '()
+      (let ([x (car xs)]
+            [rst (cdr xs)])
+        (f x)
+        (for-each f rst))))
