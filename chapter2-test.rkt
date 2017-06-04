@@ -39,3 +39,10 @@
  (check-equal? (reverse (list 1 2 3)) (list  3 2 1))
  (check-equal? (reverse '()) '())
  (check-equal? (reverse (list 1)) (list 1)))
+
+;; Exercise 2.28
+(test-begin
+ (check-equal? (fringe '()) '())
+ (define x (list (list 1 2) (list 3 4)))
+ (check-equal? (fringe x) (list 1 2 3 4))
+ (check-equal? (fringe (list x x)) (list 1 2 3 4 1 2 3 4)))

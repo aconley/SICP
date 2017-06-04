@@ -12,7 +12,9 @@
          add-interval
          sub-interval
          last-pair
-         reverse)
+         reverse
+         for-each
+         fringe)
 
 ;; Exercise 2.1: better version of make-rat
 (define (gcd a b)
@@ -77,3 +79,10 @@
             [rst (cdr xs)])
         (f x)
         (for-each f rst))))
+
+;; Exercise 2.28
+(define (fringe xs)
+  (cond [(null? xs) '()]
+        [(list? xs) (append (fringe (car xs)) (fringe (cdr xs)))]
+        [else (list xs)]))
+     
