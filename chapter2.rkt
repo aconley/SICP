@@ -14,7 +14,13 @@
          last-pair
          reverse
          for-each
-         fringe)
+         fringe
+         tree-map
+         square-tree
+         accumulate
+         map2
+         append2
+         length2)
 
 ;; Exercise 2.1: better version of make-rat
 (define (gcd a b)
@@ -85,4 +91,25 @@
   (cond [(null? xs) '()]
         [(list? xs) (append (fringe (car xs)) (fringe (cdr xs)))]
         [else (list xs)]))
-     
+
+;; Exercise 2.31
+(define (tree-map f tree)
+  (cond [(null? tree) '()]
+        [(not (pair? tree)) (f tree)]
+        [else (cons (tree-map f (car tree))
+                    (tree-map f (cdr tree)))]))
+(define (square-tree tree) (tree-map (lambda (x) (* x x)) tree))
+
+;; Exercise 2.33
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+
+(define (map2 p seq)
+  (accumulate (lambda (x y) (cons (p x) y)) '() seq))
+(define (append2 seq1 seq2)
+  (accumulate (lambda (x y) (cons x y)) seq2 seq1))
+(define (length2 seq)
+  (accumulate (lambda (x y) (+ y 1)) 0 seq))
