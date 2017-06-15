@@ -64,3 +64,8 @@
  (check-equal? (length2 '()) 0)
  (check-equal? (length2 (list 1)) 1)
  (check-equal? (length2 (list 1 2 3 4)) 4))
+
+;; Exercise 2.54
+(test-begin
+ (check-true (equal-symbol? '(this is a list) '(this is a list)))
+ (check-false (equal-symbol? '(this is a list) '(this (is a) list))))

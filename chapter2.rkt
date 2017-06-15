@@ -20,7 +20,9 @@
          accumulate
          map2
          append2
-         length2)
+         length2
+         unique-pairs
+         equal-symbol?)
 
 ;; Exercise 2.1: better version of make-rat
 (define (gcd a b)
@@ -106,6 +108,23 @@
       initial
       (op (car sequence)
           (accumulate op initial (cdr sequence)))))
+
+;; Exercise 2.40
+(define (unique-pairs n)
+  (for*/list ([i (in-range 2 n)]
+              [j (in-range 1 i)])
+    (cons i j)))
+
+;; Exercise 2.54
+(define (equal-symbol? a b)
+  (cond [(and (symbol? a) (symbol? b)) (eq? a b)]
+        [(and (list? a) (list? b))
+         (cond [(null? a) (null? b)]
+               [(null? b) (null? a)]
+               [else (and (equal-symbol? (car a) (car b))
+                          (equal-symbol? (cdr a) (cdr b)))])]
+        [else #f]))
+
 
 (define (map2 p seq)
   (accumulate (lambda (x y) (cons (p x) y)) '() seq))
